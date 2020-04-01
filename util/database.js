@@ -1,21 +1,25 @@
 const { MongoClient } = require('mongodb');
 
 const formatedString = () => {
-	const db = process.env.MONGO_URL.replace('<USER>', process.env.MONGO_USER).replace(
-		'<PASSWORD>',
-		process.env.MONGO_PASSWORD
-	);
+	const db = process.env.MONGO_URL.replace('<USER>', process.env.MONGO_USER)
+		.replace('<PASSWORD>', process.env.MONGO_PASSWORD)
+		.concat(`/${process.env.MONGO_DATABASE}`);
 	return db;
 };
 
-const database = async callback => {
+let _db;
+
+exports.mongoConnect = async () => {
 	try {
-		const connection = await MongoClient.connect(formatedString());
+		const { db } = await MongoClient.connect(formatedString());
 		console.log('Connected to database 💥🎉');
-		callback(connection);
+		_db = db();
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-module.exports = database;
+exports.getDatabase = () => {
+	if (_db) return _db;
+	throw 'No databse found';
+};
