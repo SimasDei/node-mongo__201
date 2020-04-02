@@ -22,6 +22,7 @@ app.use('/admin', adminRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
-	app.listen(3000);
+app.listen(process.env.DEV_PORT, () => {
+	console.log(`App running on http://localhost:${process.env.DEV_PORT} ⛵️o/`);
+	mongoConnect();
 });
