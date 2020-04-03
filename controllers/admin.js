@@ -15,7 +15,8 @@ exports.postAddProduct = async (req, res, next) => {
 	const description = req.body.description;
 	const product = new Product({ title, imageUrl, price, description });
 	result = await product.save();
-	res.status(200).json(result);
+	console.log('Product created! 🎉💥');
+	res.redirect('/admin/products');
 };
 
 /*

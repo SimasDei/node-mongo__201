@@ -11,8 +11,7 @@ class Product {
 	async save() {
 		const db = getDatabase();
 		try {
-			const result = await db.collection('products').insertOne(this);
-			console.log(result);
+			return await db.collection('products').insertOne(this);
 		} catch (error) {
 			console.log(error);
 		}
