@@ -13,7 +13,7 @@ exports.postAddProduct = async (req, res, next) => {
 	const imageUrl = req.body.imageUrl;
 	const price = req.body.price;
 	const description = req.body.description;
-	const product = new Product({ title, imageUrl, price, description });
+	const product = new Product(title, imageUrl, price, description);
 	result = await product.save();
 	console.log('Product created! 🎉💥');
 	res.redirect('/admin/products');

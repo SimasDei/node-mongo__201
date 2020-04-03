@@ -6,10 +6,13 @@ class Product {
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
+
+		this.save().bind(this);
 	}
 
 	async save() {
 		const db = getDatabase();
+		console.log(this);
 		try {
 			return await db.collection('products').insertOne(this);
 		} catch (error) {
